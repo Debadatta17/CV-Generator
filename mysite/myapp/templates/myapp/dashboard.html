@@ -1,0 +1,167 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+
+  <body class="bg-[#f5f7ff] min-h-screen">
+
+    <!-- HEADER -->
+    <div
+      class="bg-gradient-to-r from-indigo-700 via-blue-700 to-sky-500 rounded-b-[40px] px-10 py-8 shadow-2xl"
+    >
+      <div class="flex items-center justify-between flex-wrap gap-6">
+
+        <!-- LEFT -->
+        <div class="flex items-center gap-5">
+          <div
+            class="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-lg flex items-center justify-center shadow-lg"
+          >
+            <i class="fa-solid fa-sparkles text-white text-xl"></i>
+          </div>
+
+          <div>
+            <h1 class="text-4xl font-bold text-white">
+              Your CVs
+            </h1>
+
+            <p class="text-white/80 text-lg mt-1">
+              Create, preview, and manage beautifully formatted resumes.
+            </p>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="flex items-center gap-4 flex-wrap">
+
+          <!-- SEARCH -->
+          <div
+            class="bg-white/10 border border-white/20 backdrop-blur-lg rounded-2xl px-5 py-4 flex items-center gap-3 w-[400px]"
+          >
+            <input
+              type="text"
+              placeholder="Search by name or email..."
+              class="bg-transparent outline-none text-white placeholder:text-white/60 w-full text-lg"
+            />
+
+            <i class="fa-solid fa-magnifying-glass text-white text-lg"></i>
+          </div>
+
+          <!-- BUTTON -->
+          <a
+            href="{% url 'save-profile' %}"  class="bg-white text-indigo-700 text-lg font-semibold px-8 py-4 rounded-2xl shadow-xl hover:scale-105 transition duration-300"
+          >
+            <i class="fa-solid fa-plus mr-2"></i>
+            Create CV
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="px-10 py-10">
+
+      <div
+        class="bg-white/60 backdrop-blur-lg border border-gray-200 rounded-[35px] p-8 shadow-xl min-h-[400px]"
+      >
+
+        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+
+          {% for resume in resumes %}
+
+          <!-- CARD -->
+          <div
+            class="bg-white rounded-[30px] p-8 shadow-lg hover:shadow-2xl transition duration-300 border border-gray-100"
+          >
+
+            <!-- TOP -->
+            <div class="flex items-start justify-between">
+
+              <div class="flex items-center gap-4">
+
+                <!-- AVATAR -->
+                <div
+                  class="w-16 h-16 rounded-2xl bg-indigo-100 flex items-center justify-center"
+                >
+                  <span class="text-2xl font-bold text-indigo-700">
+                    {{ resume.name|slice:":1" }}
+                  </span>
+                </div>
+
+                <!-- INFO -->
+                <div>
+                  <h2 class="text-2xl font-bold text-gray-900">
+                    {{ resume.name }}
+                  </h2>
+
+                  <p class="text-gray-500 text-base mt-1">
+                    {{ resume.email }}
+                  </p>
+                </div>
+
+              </div>
+
+              <i class="fa-solid fa-file text-gray-500 text-xl"></i>
+
+            </div>
+
+            <!-- LINE -->
+            <div class="border-t border-gray-200 my-6"></div>
+
+            <!-- ACTIONS -->
+            <div class="flex flex-wrap gap-5 text-base font-semibold">
+
+              <a
+                href="{% url 'resume' resume.id %}"
+                class="text-indigo-700 hover:text-indigo-900 transition"
+              >
+                <i class="fa-solid fa-square mr-2"></i>
+                Preview
+              </a>
+
+              <a
+                href=""
+                class="text-emerald-700 hover:text-emerald-900 transition"
+              >
+                <i class="fa-solid fa-download mr-2"></i>
+                Download PDF
+              </a>
+
+              <a
+                href="{% url 'edit-resume' resume.id %}"
+                class="text-amber-700 hover:text-amber-900 transition"
+              >
+                <i class="fa-solid fa-pen mr-2"></i>
+                Edit
+              </a>
+
+              <a
+                 href="{% url 'delete-resume' resume.id %}"
+                class="text-red-700 hover:text-red-900 transition"
+              >
+                <i class="fa-solid fa-trash mr-2"></i>
+                Delete
+              </a>
+
+            </div>
+
+          </div>
+
+          {% endfor %}
+
+        </div>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="text-center mt-10 text-lg text-gray-600">
+        © CV Manager. Built with ❤️ using Django & Tailwind.
+      </div>
+
+    </div>
+
+  </body>
+</html>
